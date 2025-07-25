@@ -21,7 +21,7 @@ type  FormValues = z.infer<typeof signInSchema>;
 
 
 
-export const SignIn = () => {
+export const SignUp = () => {
 
   const onSubmit=async (data: FormValues) => {
     const response=await signIn("credentials", {
@@ -61,7 +61,7 @@ export const SignIn = () => {
         </Link>
         <Card className="w-full max-w-sm">
           <CardHeader>
-            <CardTitle className="text-center text-2xl">Sign In</CardTitle>
+            <CardTitle className="text-center text-2xl">Sign Up</CardTitle>
             <CardDescription className="text-center">
               Enter your credentials to access your account.
             </CardDescription>
@@ -71,18 +71,18 @@ export const SignIn = () => {
               <div className="grid gap-2">
                 <Label htmlFor="email">Email</Label>
                 <Input {...register("email")} id="email" type="email" placeholder="Enter your email" />
-                {errors.email && <p className="text-sm text-red-500">{errors.email.message}</p>}
+                 {errors.email && <p className="text-sm text-red-500">{errors.email.message}</p>}
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="password">Password</Label>
                 <Input {...register("password")} id="password" type="password" placeholder="Enter your password" />
                 {errors.password && <p className="text-sm text-red-500">{errors.password.message}</p>}
               </div>
-              <Button type="submit" className="w-full">Sign In</Button>
+              <Button type="submit" className="w-full">Sign Up</Button>
             </form>
           </CardContent>
           <CardFooter className="flex justify-center">
-            <p className="text-sm text-gray-500">Don't have an account? <Link href="/signup" className="text-blue-500 hover:underline">Sign Up</Link></p>
+            <p className="text-sm text-gray-500">Already have an account? <Link href="/signin" className="text-blue-500 hover:underline">Sign In</Link></p>
           </CardFooter>
         </Card>
 
