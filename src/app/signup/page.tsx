@@ -1,4 +1,4 @@
-"use server";
+
 
 import { auth } from "~/server/auth"; // ✅ from your auth.ts
 import { redirect } from "next/navigation";

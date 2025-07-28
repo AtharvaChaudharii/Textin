@@ -58,41 +58,50 @@ export const authConfig = {
 
     Credentials({
       credentials: {
-        email: { },
-        password: { },
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" }
       },
-      async authorize(credentials){
-        try{
-           const {email,password}= await signInSchema.parseAsync(credentials);
-
-           const user=await db.user.findUnique({
-            where:{
-              email:email
-            }
-           })
-
-           if(!user){
-            throw new Error("User not found");
-           }
-
-           const isValidPassword = await bcrypt.compare(password, user.password);
-           if (!isValidPassword) {
-             throw null;
-           }
-
-           return user;
-
-
-
-        }catch (error) {
-          if (error instanceof ZodError) {
+      async authorize(credentials) {
+        try {
+          // Validate with zod
+          const validatedCredentials = signInSchema.safeParse(credentials);
+          
+          if (!validatedCredentials.success) {
+            console.log("Validation failed:", validatedCredentials.error);
+            return null;
+          }
+          
+          const { email, password } = validatedCredentials.data;
+          
+          // Find user
+          const user = await db.user.findUnique({
+            where: { email }
+          });
+          
+          if (!user || !user.password) {
+            console.log("User not found or has no password");
+            return null;
+          }
+          
+          // Compare password
+          const passwordMatch = await bcrypt.compare(password, user.password);
+          
+          if (!passwordMatch) {
+            console.log("Password doesn't match");
+            return null;
+          }
+          
+          // Return user without password
+          const { password: _, ...userWithoutPassword } = user;
+          console.log("Authentication successful for:", email);
+          
+          return userWithoutPassword;
+        } catch (error) {
+          console.error("Auth error:", error);
           return null;
         }
       }
-      return null;
-
     }
-  }
   )
    
     /**
@@ -107,7 +116,7 @@ export const authConfig = {
   ],
   pages:{
     signIn:"/signin"
-    
+
   },
   secret: process.env.NEXTAUTH_SECRET,
 
