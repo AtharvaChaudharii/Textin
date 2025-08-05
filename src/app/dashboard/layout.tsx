@@ -15,10 +15,8 @@ export default async function Layout({
            
            <div className="flex items-center gap-4">
             <Credits/>
-            <Link href="/dashboard/pricing"><Button>Buy more credits</Button></Link>
             <SignOut/>
            </div>
-
         </nav>
         {children}
     </div>

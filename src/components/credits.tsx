@@ -2,12 +2,13 @@
 
 import Link from "next/link";
 import { Button } from "./ui/button";
-import { auth } from "~/server/auth";
+import { getServerSession } from "next-auth";
 import { db } from "~/server/db";
+import { authOptions } from "~/server/auth";
 
 
 const Credits = async () => {
-    const session = await auth();
+    const session = await getServerSession(authOptions);
 
     const user=await db.user.findUnique({
         where:{

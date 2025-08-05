@@ -13,8 +13,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react"; // Import signIn from next-auth
 // import { toast } from "~/hooks/use-toast"; // Import toast for notifications
 import { toast } from "sonner" // Adjust the path as needed to the correct location of use-toast
-import Router from "next/router";
+import {useRouter} from "next/navigation";
 
+
+const router= useRouter();
 
 type  FormValues = z.infer<typeof signInSchema>;
 
@@ -39,7 +41,7 @@ export const SignIn = () => {
 
       }else if (response?.ok) {
 
-        Router.push("/dashboard"); // Redirect to dashboard on success
+        router.push("/dashboard"); // Redirect to dashboard on success
         // Handle success case
         // toast({
         //   title: "Sign In Successful",
