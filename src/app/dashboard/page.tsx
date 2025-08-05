@@ -35,9 +35,13 @@ const page= async ()=>{
                 </div>
 
                 ): (
-                <div>
-                    <ThumbnailCreator/>
-                </div>
+                    <div className="flex flex-col   mt-10">
+                        <h1 className="scroll-m-20 text-center text-4xl font-extrabold tracking-tight text-balance">Hi There</h1>
+                        <h1 className="scroll-m-20 text-center text-4xl font-extrabold tracking-tight text-balance">Want To Create Thumbnail?</h1>
+                        <p className=" leading-7 text-muted-foreground">Use One of template below.</p>
+                         <ThumbnailCreator/>
+                    </div>
+                   
                 )}
             </div>
         </div>

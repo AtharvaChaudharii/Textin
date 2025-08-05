@@ -1,8 +1,12 @@
 "use client";
 
+import Dropzone from "./dropzone";
+
 const ThumbnailCreator=() =>{
+
+    const setSelectedImage=async  (file?:File) => {};
     return (
-        <div> Thumnbnails</div>
+        <Dropzone setSelectedImage={setSelectedImage} />
     )
 }
 export default ThumbnailCreator;
